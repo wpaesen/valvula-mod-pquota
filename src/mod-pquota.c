@@ -1,6 +1,6 @@
 /* 
- *  Valvula: a high performance policy daemon
- *  Copyright (C) 2014 Advanced Software Production Line, S.L.
+ *  mod-pquota: quota module with punish period for valvula
+ *  Copyright (C) 2015 Wouter Paesen <wouter@blue-gate.be>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -20,18 +20,6 @@
  *  You may find a copy of the license under this software is released
  *  at COPYING file. 
  *
- *  For comercial support about integrating valvula or any other ASPL
- *  software production please contact as at:
- *          
- *      Postal address:
- *         Advanced Software Production Line, S.L.
- *         C/ Antonio Suarez Nº 10, 
- *         Edificio Alius A, Despacho 102
- *         Alcalá de Henares 28802 (Madrid)
- *         Spain
- *
- *      Email address:
- *         info@aspl.es - http://www.aspl.es/valvula
  */
 #include <mod-pquota.h>
 
@@ -419,76 +407,59 @@ END_C_DECLS
 
 
 /** 
- * \page valvulad_mod_mquota mod-mquota: Valvulad sending control quota module
+ * \page valvulad_mod_pquota mod-pquota: sending control quota module
  *
- * \section mquota_intro Introduction to mquota
+ * \section pquota_intro Introduction to pquota
  *
- * Mod-Mquota applies to sending mail operations when they are
+ * Mod-Pquota applies to sending mail operations when they are
  * authenticated. It is mainly designed for shared hosting solutions
  * where it is required to limit user sending rate and to control and
  * minimize the impact of compromised accounts.
  *
- * The plugin has a straightforward operation method were you configure
- * different time periods inside which you limit the amount of mails
- * that can be sent by minute, by hour and inside the total
- * period. 
+ * The plugin has a straightforward operation method where you configure
+ * an accounting period, an accounting limit and a punishment duration.
  *
- * Those limits apply to account level and whole domain level (so
+ * If more e-mails than the defined limit are sent in the configured 
+ * period the account will be barred from sending e-mail for the 
+ * punishment period.
+ *
+ *
+ * Those limits can apply to account level and whole domain level (so
  * "smart" users cannot use user1@yourdomain.com,
  * user2@yourdomani.com..and so on to bypass limits).
  *
- * \section mquota_configuration_example mod-mquota Configuration examples
+ * \section pquota_configuration_example mod-pquota Configuration examples
  *
- * Take a look inside &lt;default-sending-quota> node inside /etc/valvula/valvula.conf and you'll find something like this:
+ * The mod-pquota module is configured by a &lt;pq-quota> node under the 
+ * &lt;enviroment> node inside /etc/valvula/valvula.conf:
+ *
  * \code
- *    <!-- sending and receiving quotas: used by mod-mquota  -->
- *    <default-sending-quota status="full" if-no-match="first">
- *      <!-- account limit: 50/minute,  250/hour  and  750/global from 09:00 to 21:00 
- *           domain limit:  100/minute, 375/hour  and 1100/global 
- *
- *           note: use -1 to disable any of the limits.  
- *           For example, to disable global limit, use globa-limit="-1" 
- *      -->
- *      <limit label='day quota' from="9:00" to="21:00"  status="full" 
- *	     minute-limit="50" hour-limit="250" global-limit="750" 
- *	     domain-minute-limit="100" domain-hour-limit="375" domain-global-limit="1100" />
- *
- *      <!-- limit 15/minute, 50/hour  and 150/global from 21:00 to 09:00 -->
- *      <limit label='night quota' from="21:00" to="9:00"  status="full" 
- *	     minute-limit="15" hour-limit="50" global-limit="150" 
- *	     domain-minute-limit="15" domain-hour-limit="50" domain-global-limit="150" />
- *    </default-sending-quota>
+ *    <!-- sending and receiving quotas: used by mod-pquota  -->
+ *    <pq-quota debug="no">
+ *      <!-- user limit, 50/5 minutes, punishment for 33 minutes -->
+ *      <limit duration="5" limit="50" punish="33" />
+ *      <!-- domain limit, 100/10 minutes, punisment for 66 minutes -->
+ *      <domain-limit duration="10" limit="100" punish="66" />
+ *    </pq-quota>
  * \endcode
  *
  * Taking as a reference previous example, operation mode is applied following next rules:
  *
- * - 1. First it is found what period applies at this time by looking into <b>from</b> and <b>to</b> attribute on every <b>&lt;limit></b> node. 
+ * - 1. First the punish list for the user and the domains is consulted.  If either the
+ *      user or the domain is found in the punish list the e-mail is rejected.
  *
- * - 2. If no period matches, <b>&lt;if-no-match></b> attribute comes into play (we will talk about this later). 
+ * - 2. The accounting bucket for the user and the account bucket for the domain is 
+ *      incremented by 1.
  *
- * - 3. Once the period is selected, accounting is done to the user account and domain looking at the self-explaining limits. For example, if the user sends more that 50 mails by minute at 11:00 am, then valvula will reject accepting sending more.
+ * - 3. If either accounting bucket overflows, the user or the domain is added to the
+ *      punish list and the e-mail is rejected.
  *
- * - 4. Again, if the total amount sent by a domain (including all accounts involved in previous send operations) reached provided limits (for example, domain-minute-limit) then valvula will reject accepting sending more. 
  *
- * - 5. Finally, if the minute limit is reached, then a minute after it will be restarted so the user only have to wait that time. The same applies to the hour limit and to the global limit. 
+ * Both the &lt;limit> node and the &lt;domain-limit> node can be left out to disable
+ * the corresponding limit.   If none of both are found in the config, the module
+ * is effectively disabled.
  *
- * \section mquota_if_no_match_period mod-mquota Selecting a default period when no match is found (<if-no-match>)
- *
- * When no period is found to apply, if-no-match attribute is used (at
- * <default-sending-quota>). This allows to define a particular period
- * where limits applies and then, outside that limit, a default
- * period, no limit or just reject is applied.
- *
- * Allowed values are:
- *
- * - 1) first : if no period matches, then the first period in the definition list is used.
- *
- * - 2) no-limit : if no period matches, then, apply no limit and let the user to send without limit. This is quite useful to define night limits. That is, you only have to define a period to cover nights period and then, during the day no limit is applied where you can have a better supervision.
- *
- * - 3) reject : if no period matches, then just reject the send operation.
- * 
- *
- * \section mquota_exceptions mod-mquota Configuring exceptions to certain users
+ * \section pquota_exceptions mod-pquota Configuring exceptions to certain users
  *
  * In the case you want to apply quotas in a general manner but need a
  * way to avoid applying these quotas to certain users, then connect
@@ -496,7 +467,7 @@ END_C_DECLS
  * <b>/etc/valvula/valvula.conf</b>) and then run the following query:
  *
  * \code
- * INSERT INTO mquota_exception (is_active, sasl_user) VALUES ('1', 'test4@unlimited2.com');
+ * INSERT INTO pquota_exception (is_active, sasl_user) VALUES ('1', 'test4@unlimited2.com');
  * \endcode
  *
  * This will allow sasl user test4@unlimited2.com to send without any restriction.
