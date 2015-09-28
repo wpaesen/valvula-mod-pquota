@@ -1,6 +1,6 @@
 /* 
- *  Valvula: a high performance policy daemon
- *  Copyright (C) 2014 Advanced Software Production Line, S.L.
+ *  mod-pquota: quota module with punish period for valvula
+ *  Copyright (C) 2015 Wouter Paesen <wouter@blue-gate.be>
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -20,18 +20,6 @@
  *  You may find a copy of the license under this software is released
  *  at COPYING file. 
  *
- *  For comercial support about integrating valvula or any other ASPL
- *  software production please contact as at:
- *          
- *      Postal address:
- *         Advanced Software Production Line, S.L.
- *         C/ Antonio Suarez Nº 10, 
- *         Edificio Alius A, Despacho 102
- *         Alcalá de Henares 28802 (Madrid)
- *         Spain
- *
- *      Email address:
- *         info@aspl.es - http://www.aspl.es/valvula
  */
 #ifndef __MOD_PQUOTA_H__
 #define __MOD_PQUOTA_H__
