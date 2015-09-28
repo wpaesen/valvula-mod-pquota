@@ -1,0 +1,11 @@
+About mod-pquota
+~~~~~~~~~~~~~~~~
+
+This is mod-pquota for valvula.  mod-pquota implement a simple bucket quota
+algorithm.  When a quota violation is detected, a punishment period follows.
+
+valvula is high performance policy daemon written in C and making
+intensive use of threading and caching techniques.
+
+See more about valvula at: http://www.aspl.es/valvula
+
