@@ -1,5 +1,5 @@
-dnl  Valvula: a high performance policy daemon
-dnl  Copyright (C) 2014 Advanced Software Production Line, S.L.
+dnl  mod-pquota: quota module with punish period for valvula
+dnl  Copyright (C) 2015 Wouter Paesen <wouter@blue-gate.be>
 dnl
 dnl  This program is free software; you can redistribute it and/or
 dnl  modify it under the terms of the GNU General Public License as
@@ -18,18 +18,6 @@ dnl  02111-1307 USA
 dnl  
 dnl  You may find a copy of the license under this software is
 dnl  released at COPYING file.
-dnl
-dnl  For comercial support about integrating valvula or any other ASPL
-dnl  software production please contact as at:
-dnl          
-dnl      Postal address:
-dnl
-dnl         Advanced Software Production Line, S.L.
-dnl         C/ Antonio Suarez Nº10, Edificio Alius A, Despacho 102
-dnl         Alcalá de Henares 28802 Madrid
-dnl         Spain
-dnl
-dnl      Email address: info@aspl.es - http://www.aspl.es/valvula
 dnl
 
 AC_INIT(src/mod-pquota.h)
