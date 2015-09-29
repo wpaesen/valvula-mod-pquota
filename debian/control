@@ -1,7 +1,7 @@
 Source: valvulad-mod-pquota
 Priority: extra
 Maintainer: Wouter Paesen <wouter@trekwerk.com>
-Build-Depends: debhelper (>= 8.0.0), autotools-dev, libvalvula-dev (= 1.0.5-268), libvalvula-server-dev (= 1.0.5-268)
+Build-Depends: debhelper (>= 8.0.0), autotools-dev, libvalvula-dev (>= 1.0.5-273), libvalvula-server-dev (>= 1.0.5-273)
 Standards-Version: 3.9.4
 Section: libs
 Homepage: https://github.com/wpaesen/valvula-mod-pquota
@@ -10,7 +10,7 @@ Vcs-Git: https://github.com/wpaesen/valvula-mod-pquota.git
 Package: valvulad-mod-pquota
 Section: libs
 Architecture: any
-Depends: libvalvula (= 1.0.5-268), libvalvula-server (= 1.0.5-268)
+Depends: libvalvula (= 1.0.5-273), libvalvula-server (= 1.0.5-273)
 Description: Valvula quota plugin 
  mod-pquota is a Valvula quota plugin.  Contrary to valvula's
  own quota plugin this plugin supports a long punishment 
