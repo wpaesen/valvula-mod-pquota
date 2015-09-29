@@ -34,15 +34,14 @@ dnl
 
 AC_INIT(src/mod-pquota.h)
 
-configure_dir=`dirname "$0"`
-VALVULA_VERSION=`cat $configure_dir/VERSION`
-AC_SUBST(VALVULA_VERSION)
+PQUOTA_VERSION="0.0.2"
+AC_SUBST(PQUOTA_VERSION)
 
 axl_string_version=axl-`axl-knife --version`
 AC_SUBST(axl_string_version)
 
 AC_CONFIG_AUX_DIR(.)
-AM_INIT_AUTOMAKE(mod-pquota, $VALVULA_VERSION)
+AM_INIT_AUTOMAKE(mod-pquota, $PQUOTA_VERSION)
 AM_CONFIG_HEADER(config.h)
 AM_MAINTAINER_MODE
 
@@ -69,14 +68,8 @@ PKG_CHECK_MODULES(AXL, axl >= 0.6.4)
 AC_SUBST(AXL_CFLAGS)
 AC_SUBST(AXL_LIBS)
 
-VALVULA_CFLAGS="-I/usr/include/valvula/"
-VALVULA_LIBS=""
-
-oldCPPFLAGS=$CPPFLAGS
-CPPFLAGS="$CPPFLAGS $AXL_CFLAGS $VALVULA_CFLAGS"
 dnl valvula development headers
-AC_CHECK_HEADERS([valvula.h])
-CPPFLAGS=$oldCPPFLAGS
+PKG_CHECK_MODULES(VALVULA, valvula >= 1.0.5.b258 valvulad >= 1.0.5.b258)
 AC_SUBST(VALVULA_CFLAGS)
 AC_SUBST(VALVULA_LIBS)
 

@@ -1,7 +1,7 @@
 EXTRA_DIST = mod-pquota.xml
 
 INCLUDES = -Wall -g -ansi -DCOMPILATION_DATE=`date +%s` \
-	   -DVERSION=\"$(TURBULENCE_VERSION)\" \
+	   -DVERSION=\"$(PQUOTA_VERSION)\" \
 	   $(AXL_CFLAGS) $(VORTEX_CFLAGS) $(EXARG_CFLAGS) $(VALVULA_CFLAGS)
 
 lib_LTLIBRARIES      = mod-pquota.la
