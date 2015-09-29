@@ -1,0 +1,18 @@
+Source: valvulad-mod-pquota
+Priority: extra
+Maintainer: Wouter Paesen <wouter@trekwerk.com>
+Build-Depends: debhelper (>= 8.0.0), autotools-dev, libvalvula-dev (= 1.0.5-268), libvalvulad-server-dev (= 1.0.5-268)
+Standards-Version: 3.9.4
+Section: libs
+Homepage: https://github.com/wpaesen/valvula-mod-pquota
+
+Package: valvulad-mod-pquota
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libvalvula (= 1.0.5-268), libvalvula-server (= 1.0.5-268)
+Description: Valvula quota plugin 
+ mod-pquota is a Valvula quota plugin.  Contrary to valvula's
+ own quota plugin this plugin supports a long punishment 
+ period after the quota has been exceeded.
+
+

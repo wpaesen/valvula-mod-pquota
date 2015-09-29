@@ -1,0 +1,6 @@
+mod-pquota (0.0.1) unstable; urgency=low
+
+  * Initial version
+
+ -- Wouter Paesen <wouter@blue-gate.be>  Tue, 29 Sep 2015 08:12:41 +0100
+
