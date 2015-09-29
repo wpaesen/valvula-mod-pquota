@@ -5,6 +5,7 @@ Build-Depends: debhelper (>= 8.0.0), autotools-dev, libvalvula-dev (= 1.0.5-268)
 Standards-Version: 3.9.4
 Section: libs
 Homepage: https://github.com/wpaesen/valvula-mod-pquota
+Vcs-Git: https://github.com/wpaesen/valvula-mod-pquota.git
 
 Package: valvulad-mod-pquota
 Section: libs
