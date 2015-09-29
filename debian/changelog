@@ -1,3 +1,12 @@
+valvulad-mod-pquota (0.0.2) unstable; urgency=medium
+
+  * configure.ac: use pkg-config for libvalvula and libvalvulad
+  * configure.ac: PQUOTA_VERSION introduced
+  * src/Makefile.am: use PQUOTA_VERSION instead of TURBULENCE_VERSION
+  * debian/rules: run dh-autoreconf during build
+
+ -- Wouter Paesen <wouter@blue-gate.be>  Tue, 29 Sep 2015 21:02:59 +0200
+
 valvulad-mod-pquota (0.0.1) unstable; urgency=low
 
   * Initial version

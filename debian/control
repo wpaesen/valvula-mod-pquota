@@ -1,7 +1,7 @@
 Source: valvulad-mod-pquota
 Priority: extra
 Maintainer: Wouter Paesen <wouter@trekwerk.com>
-Build-Depends: debhelper (>= 8.0.0), autotools-dev, libvalvula-dev (>= 1.0.5-273), libvalvula-server-dev (>= 1.0.5-273)
+Build-Depends: debhelper (>= 8.0.0), autotools-dev, dh-autoreconf, libvalvula-dev (>= 1.0.5-273), libvalvula-server-dev (>= 1.0.5-273), axl-knife
 Standards-Version: 3.9.4
 Section: libs
 Homepage: https://github.com/wpaesen/valvula-mod-pquota
