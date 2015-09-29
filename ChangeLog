@@ -1,3 +1,9 @@
-2015-09-25	Wouter Paesen <wouter@blue-gate.be>
+2015-09-29  Wouter Paesen  <wouter@blue-gate.be>
+
+	* configure.ac: use pkg-config for libvalvula and libvalvulad
+	* configure.ac: PQUOTA_VERSION introduced
+	* src/Makefile.am: use PQUOTA_VERSION instead of TURBULENCE_VERSION
+
+2015-09-25  Wouter Paesen <wouter@blue-gate.be>
 
 	* mod-pquota: initial version
