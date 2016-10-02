@@ -22,7 +22,7 @@ dnl
 
 AC_INIT(src/mod-pquota.h)
 
-PQUOTA_VERSION="0.0.2"
+PQUOTA_VERSION="0.0.4"
 AC_SUBST(PQUOTA_VERSION)
 
 axl_string_version=axl-`axl-knife --version`
@@ -52,12 +52,12 @@ if test "$PKG_CONFIG" = "no" ; then
 fi
 
 dnl LibAxl library support.
-PKG_CHECK_MODULES(AXL, axl >= 0.6.4)
+PKG_CHECK_MODULES(AXL, axl >= 0.7.1.b3508)
 AC_SUBST(AXL_CFLAGS)
 AC_SUBST(AXL_LIBS)
 
 dnl valvula development headers
-PKG_CHECK_MODULES(VALVULA, valvula >= 1.0.5.b258 valvulad >= 1.0.5.b258)
+PKG_CHECK_MODULES(VALVULA, valvula >= 1.0.8.b310 valvulad >= 1.0.8.b310)
 AC_SUBST(VALVULA_CFLAGS)
 AC_SUBST(VALVULA_LIBS)
 
