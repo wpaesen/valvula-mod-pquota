@@ -1,3 +1,9 @@
+valvulad-mod-pquota (0.0.5) unstable; urgency=low
+
+  * Bump version number with valvula release 1.0.8-315
+
+ -- Wouter Paesen <wouter@blue-gate.be>  Fri, 27 Jan 2017 19:29:03 +0100
+
 valvulad-mod-pquota (0.0.4) unstable; urgency=low
 
   * Bump version number with valvula release 1.0.8-311

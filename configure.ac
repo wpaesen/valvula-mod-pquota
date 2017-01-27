@@ -22,7 +22,7 @@ dnl
 
 AC_INIT(src/mod-pquota.h)
 
-PQUOTA_VERSION="0.0.4"
+PQUOTA_VERSION="0.0.5"
 AC_SUBST(PQUOTA_VERSION)
 
 axl_string_version=axl-`axl-knife --version`
