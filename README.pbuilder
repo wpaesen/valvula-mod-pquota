@@ -31,3 +31,35 @@ $ sudo pbuilder --build --architecture amd64 --basetgz /path/to/wheezy-amd64.tgz
 
 Build result is in /var/cache/pbuilder/result
 
+
+Putting the package on your server:
+
+1. Create deb archive dir :
+
+$ mkdir -p /usr/local/mydebs/
+
+2. Create a script to update the repositoy :
+$ cat > /usr/local/sbin/update-mydebs
+#!/bin/bash
+
+cd /usr/local/mydebs
+dpkg-scanpackages . /dev/null > Packages
+cat Packages | gzip -9 > Packages.gz
+Ctrl-D
+
+3. Add your local repository to apt :
+echo "deb [trusted=yes] file:/usr/local/mydebs/ ./" > /etc/apt/sources.list.d/mydebs.list
+
+4. Copy your deb to /usr/local/mydebs/
+
+$ cp /path/to/your.deb /usr/local/mydebs/
+
+5. Run the update script 
+
+$ /usr/local/sbin/update-mydebs
+
+6. Update apt(itude)
+
+$ aptitude update
+
+
