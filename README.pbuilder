@@ -1,0 +1,33 @@
+Building this package with pbuilder, for Wheezy, amd64.
+
+1. Prepare pbuilder
+
+$ sudo pbuilder --create --architecture amd64 --distribution wheezy --basetgz /path/to/wheezy-amd64.tgz
+
+2. Add valvula repositories to the pbuilder root
+
+Start a shell in the pbuildroot :
+
+$ sudo pbuilder login --save-after-login --basetgz /path/to/wheezy-amd64.tgz
+
+Add the repository configuration :
+
+$ echo "deb [ trusted=yes ] http://www.aspl.es/debian/public wheezy/" > /etc/apt/sources.list.d/valvulvad.list
+$ aptitude update
+$ exit
+
+3. Prepare the source package
+
+$ git clone https://github.com/wpaesen/valvula-mod-pquota.git
+$ cd valvula-mod-pquota/
+$ dpkg-buildpackage -S -d
+$ cd ..
+
+4. Build 
+
+$ sudo pbuilder --build --architecture amd64 --basetgz /path/to/wheezy-amd64.tgz valvulad-mod-pquota_0.0.5.dsc
+
+5. Enjoy
+
+Build result is in /var/cache/pbuilder/result
+
