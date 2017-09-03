@@ -7,5 +7,3 @@
 %:
 	dh $@  --with autotools-dev --with autoreconf
 
-override_dh_shlibdeps:
-
