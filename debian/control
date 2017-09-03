@@ -10,7 +10,7 @@ Vcs-Git: https://github.com/wpaesen/valvula-mod-pquota.git
 Package: valvulad-mod-pquota
 Section: libs
 Architecture: any
-Depends: libvalvula (= 1.0.8-315), libvalvula-server (= 1.0.8-315)
+Depends: libvalvula (= 1.0.8-320), libvalvula-server (= 1.0.8-320)
 Description: Valvula quota plugin 
  mod-pquota is a Valvula quota plugin.  Contrary to valvula's
  own quota plugin this plugin supports a long punishment 
